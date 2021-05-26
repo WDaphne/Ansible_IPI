@@ -1,7 +1,26 @@
 - hosts: remote
   gather_facts: false
+  
+  vars_prompt:
+    - name: packages_list_csv
+      prompt: What package?
+      private: no
+
   tasks:
-    - name : copy file to remote server
-      copy:
-        src: "{{ src }}"
-        desr: "{{ dest }}"
+    # - name : copy file to remote server
+    #   copy:
+    #    src: "{{ src }}"
+    #    dest: "{{ dest }}"
+
+    #- name: install packages
+      #package:
+      #  name: "{{ListeAppli}}"
+      #  state: present
+      #become: true
+      #become_user: root
+
+    - name: Install a list of packages
+      become: yes
+      apt:
+        pkg: "{{ packages_list.split(',') }}"
+        state: present
