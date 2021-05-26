@@ -2,7 +2,7 @@
   gather_facts: false
   
   vars_prompt:
-    - name: packages_list_csv
+    - name: packages_list
       prompt: What package?
       private: no
 
@@ -24,3 +24,4 @@
       apt:
         pkg: "{{ packages_list.split(',') }}"
         state: present
+        
